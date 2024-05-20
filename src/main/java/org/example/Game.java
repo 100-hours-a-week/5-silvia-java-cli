@@ -1,45 +1,68 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 class Game {
     private KoreanMusicList kmusic;
+    private PopMusicList pmusic;
     private int score;
     private int numberOfGames;
+    private GameMusic[] songs;
 
-    public Game() {
+    public Game(int musicChoice) {
         kmusic = new KoreanMusicList();
+        pmusic = new PopMusicList();
         score = 0;
-        numberOfGames = 10;  // 게임 횟수 설정
-    }
+        numberOfGames = 10;
 
-    public void GameChoice() {
-        Scanner scanner = new Scanner(System.in);
-        String gameChoice = scanner.nextLine();
-
-        switch (gameChoice) {
-            case "1":
-
+        if (musicChoice == 1) {
+            songs = kmusic.getSongs();
+        } else if (musicChoice == 2) {
+            songs = pmusic.getSongs();
+        } else {
+            throw new IllegalArgumentException("Invalid music choice");
         }
-
     }
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        GameMusic[] songs = kmusic.getSongs();
-        int songCount = songs.length;
+        ArrayList<GameMusic> songList = new ArrayList<>();
+
+        Collections.addAll(songList, songs);
+        Collections.shuffle(songList);
 
         for (int i = 0; i < numberOfGames; i++) {
-            GameMusic song = songs[i % songCount];
+            GameMusic song = songList.get(i);
+            System.out.println("¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪");
             System.out.println("가사를 보고 노래 제목을 맞춰보세요:");
-            System.out.println("\"" + song.getLyrics() + "\"");
-            System.out.println("제목을 입력하거나 힌트를 요청하세요 (힌트: hint):");
+            System.out.println("\"" + song.getLyrics1() + "\"");
+            System.out.print("제목을 입력하거나 힌트를 요청하세요 (힌트: hint): ");
 
             String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("hint")) {
-                System.out.println("가수: " + song.getSinger());
-                System.out.println("제목을 입력하세요:");
+                boolean validHint = false;
+                while (!validHint) {
+                    System.out.println("1. 다음 가사, 2. 가수");
+                    System.out.print("어떤 힌트를 보시겠습니까?: ");
+                    String hintChoice = scanner.nextLine();
+                    switch (hintChoice) {
+                        case "1":
+                            System.out.println("다음 가사: " + song.getLyrics2());
+                            validHint = true;
+                            break;
+                        case "2":
+                            System.out.println("가수: " + song.getSinger());
+                            validHint = true;
+                            break;
+                        default:
+                            System.out.println("올바른 번호를 입력해주세요.");
+                            break;
+                    }
+                }
+                System.out.print("노래 제목을 입력하세요: ");
                 input = scanner.nextLine();
             }
 
@@ -47,7 +70,7 @@ class Game {
                 score += 10;
                 System.out.println("정답입니다! 현재 점수: " + score);
             } else {
-                System.out.println("틀렸습니다. 정답은 " + song.getTitle() + "입니다. 현재 점수: " + score);
+                System.out.println("틀렸습니다. 정답은 " + song.getTitle() + "입니다. 현재 점수: " + score + "\n");
             }
         }
 

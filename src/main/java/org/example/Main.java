@@ -24,14 +24,15 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+
         boolean exit = false;
 
         while (!exit) {
             printAsciiArt();
-
             System.out.println("1. 게임 설명");
             System.out.println("2. 게임하러가기");
-            System.out.println("번호를 입력해주세요:");
+            System.out.print("번호를 입력해주세요: ");
 
             String mainChoice = scanner.nextLine();
 
@@ -39,12 +40,13 @@ public class Main {
                 case "1":
                     printGameDescription();
                     System.out.println("계속하려면 엔터를 누르세요...");
-                    scanner.nextLine();  // Wait for the user to press Enter
+                    scanner.nextLine();
                     break;
                 case "2":
-                    Game game = new Game();
+                    int musicChoice = GameChoice.getMusicChoice();
+                    Game game = new Game(musicChoice);
                     game.play();
-                    exit = true;  // Exit the loop after the game finishes
+                    exit = true;
                     break;
                 default:
                     System.out.println("올바른 숫자를 입력하세요.");

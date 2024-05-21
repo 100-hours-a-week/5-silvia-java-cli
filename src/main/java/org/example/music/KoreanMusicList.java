@@ -1,14 +1,8 @@
 package org.example.music;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-public class KoreanMusicList {
-    private List<GameMusic> songs;
+public class KoreanMusicList extends MusicList {
 
     public KoreanMusicList() {
-        songs = new ArrayList<>();
         songs.add(new GameMusic("좋은날", "눈물이 차올라서 고갤 들어", "나는요 오빠가 좋은 걸 어떡해", "아이유"));
         songs.add(new GameMusic("깊은 밤을 날아서", "우리들 만나고 헤어지는 모든 일들이 어쩌면 어린애들 놀이같아", "난 오직 그대 사랑하는 마음에 바보 같은 꿈 꾸며", "이문세"));
         songs.add(new GameMusic("어디에도", "행복했던 것만 기억에 남아", "우린 어디에도 없는 사랑을 해", "엠씨더맥스"));
@@ -37,29 +31,8 @@ public class KoreanMusicList {
         songs.add(new GameMusic("어땠을까", "내가 그때 널 (내가 그때 널) 잡았더라면 (잡았더라면)", "왜 그랬을까 그 땐 사랑이 뭔지 몰랐어", "싸이"));
     }
 
-    public GameMusic[] showList() {
-        return songs.toArray(new GameMusic[0]);
-    }
-
-    public void addMusic(String title, String lyrics1, String lyrics2, String artist) {
-        songs.add(new GameMusic(title, lyrics1, lyrics2, artist));
-        System.out.println(title + " 노래가 추가되었습니다.");
-    }
-
-    public void removeMusic(String title) {
-        Iterator<GameMusic> iterator = songs.iterator();
-        boolean found = false;
-        while (iterator.hasNext()) {
-            GameMusic song = iterator.next();
-            if (song.getTitle().equals(title)) {
-                iterator.remove();
-                found = true;
-                System.out.println(title + " 노래가 삭제되었습니다.");
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println(title + " 노래를 찾을 수 없습니다.");
-        }
+    @Override
+    protected String getListName() {
+        return "한국 음악";
     }
 }

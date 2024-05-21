@@ -1,13 +1,8 @@
 package org.example.music;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PopMusicList {
-    private List<GameMusic> songs;
+public class PopMusicList extends MusicList {
 
     public PopMusicList() {
-        songs = new ArrayList<>();
         songs.add(new GameMusic("Shape of You", "The club isn't the best place to find a lover So the bar is where I go", "Girl, you know I want your love", "Ed Sheeran"));
         songs.add(new GameMusic("Love Yourself", "For all the times that you rain on my parade", "You think you broke my heart, oh girl for goodness sake", "Justin Bieber"));
         songs.add(new GameMusic("Bad Guy", "White shirt now red, my bloody nose", "I'm that bad type, make your mama sad type", "Billie Eilish"));
@@ -31,27 +26,8 @@ public class PopMusicList {
         songs.add(new GameMusic("Love On Top", "Honey, honey I can see the stars all the way from here", "Baby, it's you. You're the one I love", "Tones And I"));
     }
 
-    public GameMusic[] showList() {
-        return songs.toArray(new GameMusic[0]);
-    }
-
-    public void addMusic(String title, String lyrics1, String lyrics2, String artist) {
-        songs.add(new GameMusic(title, lyrics1, lyrics2, artist));
-        System.out.println(title + " 노래가 추가되었습니다.");
-    }
-
-    public void removeMusic(String title) {
-        boolean found = false;
-        for (GameMusic song : songs) {
-            if (song.getTitle().equals(title)) {
-                songs.remove(song);
-                found = true;
-                System.out.println(title + " 노래가 삭제되었습니다.");
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println(title + " 노래를 찾을 수 없습니다.");
-        }
+    @Override
+    protected String getListName() {
+        return "팝송";
     }
 }

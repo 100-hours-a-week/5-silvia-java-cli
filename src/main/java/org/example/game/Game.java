@@ -6,6 +6,7 @@ import org.example.music.PopMusicList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -26,13 +27,15 @@ public class Game {
         remainingAttempts = 3;
         hintProvider = new HintProvider();
 
+        List<GameMusic> songList;
         if (musicChoice == 1) {
-            songs = kmusic.showList();
+            songList = kmusic.getSongs();
         } else if (musicChoice == 2) {
-            songs = pmusic.showList();
+            songList = pmusic.getSongs();
         } else {
-            throw new IllegalArgumentException("Invalid music choice");
+            throw new IllegalArgumentException("유효한 숫자를 입력해주세요.");
         }
+        songs = songList.toArray(new GameMusic[0]);
     }
 
     public void play() {

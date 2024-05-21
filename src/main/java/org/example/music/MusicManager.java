@@ -14,10 +14,11 @@ public class MusicManager {
     public void manageMusic() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("1. 음악리스트 보기 (한국 음악 보기 or 팝송 보기)");
-            System.out.println("2. 음악 추가 (한국 음악 추가 or 팝송 추가)");
-            System.out.println("3. 음악 삭제 (한국 음악 삭제 or 팝송 삭제)");
+            System.out.println("1. 음악리스트 보기");
+            System.out.println("2. 음악 추가");
+            System.out.println("3. 음악 삭제");
             System.out.println("4. 메인 메뉴로 돌아가기");
+            System.out.print("번호를 입력해주세요: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
@@ -40,7 +41,7 @@ public class MusicManager {
     }
 
     private void viewMusicList(Scanner scanner) {
-        System.out.println("1. 한국 음악 보기");
+        System.out.println("1. 한국 가요 보기");
         System.out.println("2. 팝송 보기");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
@@ -55,19 +56,19 @@ public class MusicManager {
     }
 
     private void addMusic(Scanner scanner) {
-        System.out.println("1. 한국 음악 추가");
+        System.out.println("1. 한국 가요 추가");
         System.out.println("2. 팝송 추가");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
         System.out.print("추가할 음악 제목: ");
         String title = scanner.nextLine();
+        System.out.print("가수: ");
+        String artist = scanner.nextLine();
         System.out.print("가사1: ");
         String lyrics1 = scanner.nextLine();
         System.out.print("가사2: ");
         String lyrics2 = scanner.nextLine();
-        System.out.print("가수: ");
-        String artist = scanner.nextLine();
 
         if (choice == 1) {
             koreanMusicList.addMusic(title, lyrics1, lyrics2, artist);

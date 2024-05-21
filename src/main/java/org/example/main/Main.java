@@ -1,4 +1,8 @@
-package org.example;
+package org.example.main;
+
+import org.example.game.GameChoice;
+import org.example.game.Game;
+import org.example.music.MusicManager;
 
 import java.util.Scanner;
 
@@ -43,7 +47,9 @@ public class Main {
         while (!exit) {
             printAsciiArt();
             System.out.println("1. 게임 설명");
-            System.out.println("2. 게임하러가기");
+            System.out.println("2. 게임 시작");
+            System.out.println("3. 음악 관리");
+            System.out.println("4. 종료");
             System.out.print("번호를 입력해주세요: ");
 
             String mainChoice = scanner.nextLine();
@@ -60,6 +66,13 @@ public class Main {
                     game.play();
                     exit = true;
                     break;
+                 case "3":
+                     MusicManager musicManager = new MusicManager();
+                     musicManager.manageMusic();
+                     break;
+                 case "4":
+                     System.out.println("게임을 종료합니다.");
+                     return;
                 default:
                     System.out.println("올바른 숫자를 입력하세요.");
             }

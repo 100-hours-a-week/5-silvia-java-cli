@@ -1,10 +1,14 @@
-package org.example;
+package org.example.game;
+
+import org.example.music.GameMusic;
+import org.example.music.KoreanMusicList;
+import org.example.music.PopMusicList;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-class Game {
+public class Game {
     private final KoreanMusicList kmusic;
     private final PopMusicList pmusic;
     private int score;
@@ -23,9 +27,9 @@ class Game {
         hintProvider = new HintProvider();
 
         if (musicChoice == 1) {
-            songs = kmusic.getSongs();
+            songs = kmusic.showList();
         } else if (musicChoice == 2) {
-            songs = pmusic.getSongs();
+            songs = pmusic.showList();
         } else {
             throw new IllegalArgumentException("Invalid music choice");
         }
@@ -55,18 +59,18 @@ class Game {
                     hintProvider.provideHint(scanner, song);
                     input = promptUser(scanner);
                 } else if (input.equalsIgnoreCase("pass")) {
-                    System.out.println("땡~! 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
+                    System.out.println("❌땡~! 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
                     break;
                 }
 
                 if (input.equalsIgnoreCase(song.getTitle())) {
                     score += 10;
-                    System.out.println("정답입니다! 현재 점수: " + score);
+                    System.out.println("⭕️정답입니다! 현재 점수: " + score);
                     songAnswered = true;
                 } else {
                     remainingAttempts--;
                     if (remainingAttempts > 0) {
-                        System.out.println("땡~! (남은 기회: " + remainingAttempts + ")");
+                        System.out.println("❌땡~! (남은 기회: " + remainingAttempts + ")");
                     } else {
                         System.out.println("정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
                     }

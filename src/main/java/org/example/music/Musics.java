@@ -1,4 +1,4 @@
-package org.example;
+package org.example.music;
 
 public class Musics extends MusicTitle {
     protected String lyrics1;

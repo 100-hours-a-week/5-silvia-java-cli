@@ -1,4 +1,6 @@
-package org.example;
+package org.example.game;
+
+import org.example.music.GameMusic;
 
 import java.util.Scanner;
 
@@ -22,7 +24,7 @@ public class HintProvider extends AbstractHintProvider {
                     validHint = true;
                     break;
                 case "2":
-                    System.out.println("가수: " + song.getSinger());
+                    System.out.println("가수: " + song.getArtist());
                     validHint = true;
                     break;
                 default:

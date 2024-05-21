@@ -22,6 +22,10 @@ public class PopMusicList {
                 new GameMusic("Closer", "Hey, I was doing just fine before I met you", "So baby pull me closer in the back seat of your Rover", "The Chainsmokers ft. Halsey"),
                 new GameMusic("Senorita", "I love it when you call me señorita", "I wish I could pretend I didn't need ya", "Shawn Mendes & Camila Cabello"),
                 new GameMusic("Blank Space", "I could show you incredible things", "Love's a game, wanna play?", "Taylor Swift"),
+                new GameMusic("2002", "I will always remember. The day you kissed my lips", "Dancing on the hood in the middle of the woods on an old mustand", "Anne Marie"),
+                new GameMusic("The Fox", "Dog goes woof Cat goes meow", "Fraka-kaka-kaka-kaka-kow!", "Ylvis"),
+                new GameMusic("Dance Monkey", "They say, oh my God I see the way you shine", "Ooh, I see you, see you, see you every time", "Tones And I"),
+                new GameMusic("Love On Top", "Honey, honey I can see the stars all the way from here", "Baby, it's you. You're the one I love", "Tones And I"),
         };
     }
 

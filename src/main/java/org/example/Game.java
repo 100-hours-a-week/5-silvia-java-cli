@@ -5,21 +5,22 @@ import java.util.Collections;
 import java.util.Scanner;
 
 class Game {
-    private KoreanMusicList kmusic;
-    private PopMusicList pmusic;
+    private final KoreanMusicList kmusic;
+    private final PopMusicList pmusic;
     private int score;
-    private int numberOfGames;
+    private final int numberOfGames = 10;
     private int remainGames;
     private int remainingAttempts;
-    private GameMusic[] songs;
+    private final HintProvider hintProvider;
+    private final GameMusic[] songs;
 
     public Game(int musicChoice) {
         kmusic = new KoreanMusicList();
         pmusic = new PopMusicList();
         score = 0;
-        numberOfGames = 10;
         remainGames = 0;
         remainingAttempts = 3;
+        hintProvider = new HintProvider();
 
         if (musicChoice == 1) {
             songs = kmusic.getSongs();
@@ -33,7 +34,6 @@ class Game {
     public void play() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<GameMusic> songList = new ArrayList<>();
-
         Collections.addAll(songList, songs);
         Collections.shuffle(songList);
 
@@ -41,69 +41,57 @@ class Game {
             GameMusic song = songList.get(i);
             remainingAttempts = 3;
             remainGames++;
+            hintProvider.reset();
+
             System.out.println("¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪¸¸.•*¨*•♫♪");
-            System.out.println("("+remainGames+"/10) 가사를 보고 노래 제목을 맞춰보세요:");
+            System.out.println("(" + remainGames + "/10) 가사를 보고 노래 제목을 맞춰보세요:");
             System.out.println("\"" + song.getLyrics1() + "\"");
-            System.out.print("제목을 입력하거나 힌트를 요청하세요 (힌트: hint, 패스: pass): ");
 
-            String input = scanner.nextLine();
+            boolean songAnswered = false;
+            while (!songAnswered && remainingAttempts > 0) {
+                String input = promptUser(scanner);
 
-            if (input.equalsIgnoreCase("hint")) {
-                boolean validHint = false;
-                while (!validHint) {
-                    System.out.println("1. 다음 가사, 2. 가수");
-                    System.out.print("어떤 힌트를 보시겠습니까?: ");
-                    String hintChoice = scanner.nextLine();
-                    switch (hintChoice) {
-                        case "1":
-                            System.out.println("다음 가사: " + song.getLyrics2());
-                            validHint = true;
-                            break;
-                        case "2":
-                            System.out.println("가수: " + song.getSinger());
-                            validHint = true;
-                            break;
-                        default:
-                            System.out.println("올바른 번호를 입력해주세요.");
-                            break;
-                    }
+                if (input.equalsIgnoreCase("hint")) {
+                    hintProvider.provideHint(scanner, song);
+                    input = promptUser(scanner);
+                } else if (input.equalsIgnoreCase("pass")) {
+                    System.out.println("땡~! 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
+                    break;
                 }
-                System.out.print("노래 제목을 입력하세요: ");
-                input = scanner.nextLine();
-            } else if (input.equalsIgnoreCase("pass")) {
-                remainingAttempts = 3; // Reset attempts for next song
-                System.out.println("땡~! 정답은 " + song.getTitle() + "입니다! 현재 점수: " + score);
-                continue;
-            }
 
-            boolean correctAnswer = false;
-            while (remainingAttempts > 0) {
                 if (input.equalsIgnoreCase(song.getTitle())) {
                     score += 10;
                     System.out.println("정답입니다! 현재 점수: " + score);
-                    correctAnswer = true;
-                    break;
+                    songAnswered = true;
                 } else {
                     remainingAttempts--;
                     if (remainingAttempts > 0) {
-                        System.out.println("틀렸습니다. (남은 기회: " + remainingAttempts + ")");
-                        System.out.print("다시 노래 제목을 입력하세요: ");
-                        input = scanner.nextLine();
+                        System.out.println("땡~! (남은 기회: " + remainingAttempts + ")");
                     } else {
-                        System.out.println("정답은 " + song.getTitle() + "입니다. 현재 점수: " + score);
+                        System.out.println("정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
                     }
                 }
             }
-
-            if (!correctAnswer && remainingAttempts == 0) {
-                remainingAttempts = 3;
-            }
         }
 
+        System.out.println("╔═══════════════ °• ♔ •° ═══════════════╗");
         System.out.println("게임 종료! 최종 점수: " + score);
         printResult();
+        System.out.println("╚═══════════════ °• ♔ •° ═══════════════╝");
     }
 
+    private String promptUser(Scanner scanner) {
+        if (hintProvider.canProvideHint()) {
+            System.out.print("제목을 입력하거나 힌트를 요청하세요 (힌트: hint, 패스: pass): ");
+        } else {
+            System.out.print("제목을 입력하거나 패스를 요청하세요 (패스: pass): ");
+        }
+        String input = scanner.nextLine();
+        if (input.equalsIgnoreCase("pass")) {
+            remainingAttempts = 0; // Set remaining attempts to 0 to force break the while loop in play method
+        }
+        return input;
+    }
 
     private void printResult() {
         if (score < 30) {

@@ -62,29 +62,29 @@ public class Game {
                     hintProvider.provideHint(scanner, song);
                     input = promptUser(scanner);
                 } else if (input.equalsIgnoreCase("pass")) {
-                    System.out.println("❌땡~! 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
+                    System.out.println("❌ 땡~! 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
                     break;
                 }
 
                 if (input.equalsIgnoreCase(song.getTitle())) {
                     score += 10;
-                    System.out.println("⭕️정답입니다! 현재 점수: " + score);
+                    System.out.println("⭕️ 정답입니다! 현재 점수: " + score);
                     songAnswered = true;
                 } else {
                     remainingAttempts--;
                     if (remainingAttempts > 0) {
-                        System.out.println("❌땡~! (남은 기회: " + remainingAttempts + ")");
+                        System.out.println("땡~! (남은 기회: " + remainingAttempts + ")");
                     } else {
-                        System.out.println("정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
+                        System.out.println("❌ 정답은 〘" + song.getTitle() + "〙 입니다! 현재 점수: " + score);
                     }
                 }
             }
         }
 
-        System.out.println("╔═══════════════ °• ♔ •° ═══════════════╗");
-        System.out.println("게임 종료! 최종 점수: " + score);
+        System.out.println("╔═════════════════════ °• ♔ •° ═════════════════════╗");
+        System.out.println("   게임 종료! 최종 점수: " + score);
         printResult();
-        System.out.println("╚═══════════════ °• ♔ •° ═══════════════╝");
+        System.out.println("╚═════════════════════ °• ♔ •° ═════════════════════╝");
     }
 
     private String promptUser(Scanner scanner) {
@@ -102,13 +102,13 @@ public class Game {
 
     private void printResult() {
         if (score < 30) {
-            System.out.println("노래를 잘 모르시는군요. 더 열심히 들어보세요!");
+            System.out.println("   노래를 잘 모르시는군요. 더 열심히 들어보세요!");
         } else if (score < 60) {
-            System.out.println("노래에 대해 조금 알고 계시네요. 더 많은 노래를 들어보세요!");
-        } else if (score < 90) {
-            System.out.println("노래에 대해 꽤 많이 알고 계시네요. 훌륭해요!");
+            System.out.println("   노래에 대해 좀 알고 계시네요. 더 많은 노래를 들어보세요!");
+        } else if (score < 80) {
+            System.out.println("   노래에 대해 꽤 많이 알고 계시네요. 훌륭해요!");
         } else {
-            System.out.println("노래 박사시네요! 대단해요!");
+            System.out.println("   노래 박사시네요! 대단해요!");
         }
     }
 }

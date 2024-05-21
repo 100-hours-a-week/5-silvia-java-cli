@@ -43,6 +43,7 @@ public class MusicManager {
     private void viewMusicList(Scanner scanner) {
         System.out.println("1. 한국 가요 보기");
         System.out.println("2. 팝송 보기");
+        System.out.print("번호를 입력해주세요: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
@@ -58,8 +59,9 @@ public class MusicManager {
     private void addMusic(Scanner scanner) {
         System.out.println("1. 한국 가요 추가");
         System.out.println("2. 팝송 추가");
+        System.out.print("번호를 입력해주세요: ");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         System.out.print("추가할 음악 제목: ");
         String title = scanner.nextLine();
@@ -80,21 +82,26 @@ public class MusicManager {
     }
 
     private void deleteMusic(Scanner scanner) {
-        System.out.println("1. 한국 음악 삭제");
+        System.out.println("1. 한국 가요 삭제");
         System.out.println("2. 팝송 삭제");
+        System.out.print("번호를 입력해주세요: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
-        System.out.print("삭제할 음악 제목: ");
-        String title = scanner.nextLine();
-
         if (choice == 1) {
-            koreanMusicList.removeMusic(title);
+            koreanMusicList.showList();
+            System.out.print("삭제할 음악 번호: ");
+            int index = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            koreanMusicList.removeMusicByIndex(index);
         } else if (choice == 2) {
-            popMusicList.removeMusic(title);
+            popMusicList.showList();
+            System.out.print("삭제할 음악 번호: ");
+            int index = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            popMusicList.removeMusicByIndex(index);
         } else {
             System.out.println("잘못된 선택입니다.");
         }
     }
 }
-

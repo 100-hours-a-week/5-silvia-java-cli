@@ -1,7 +1,6 @@
 package org.example.music;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class MusicList {
@@ -30,23 +29,6 @@ public abstract class MusicList {
         System.out.println("📍 " + title + " 노래가 추가되었습니다.");
         System.out.println("\n");
     }
-
-//    public void removeMusic(String title) {
-//        Iterator<GameMusic> iterator = songs.iterator();
-//        boolean found = false;
-//        while (iterator.hasNext()) {
-//            GameMusic song = iterator.next();
-//            if (song.getTitle().equals(title)) {
-//                iterator.remove();
-//                found = true;
-//                System.out.println("📍 " +title + " 노래가 삭제되었습니다.");
-//                break;
-//            }
-//        }
-//        if (!found) {
-//            System.out.println(title + " 노래를 찾을 수 없습니다.");
-//        }
-//    }
 
     public void removeMusicByIndex(int index) {
         if (index < 1 || index > songs.size()) {
